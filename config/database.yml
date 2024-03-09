@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: materialize_views
+  host: <%= ENV.fetch("DATABASE_HOST") %>
+  port: <%= ENV.fetch("DATABASE_PORT") %>
+
+development:
+  <<: *default
+  database: materialize_views_development
+
+test:
+  <<: *default
+  database: materialize_views_test
+
+production:
+  <<: *default
+  database: materialize_views_production
+  username: materialize_views
+  password:
