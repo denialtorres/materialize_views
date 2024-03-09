@@ -75,3 +75,5 @@ group :development, :test do
   gem "faker"
   gem "rspec-rails"
 end
+
+gem "scenic", "~> 1.7"
