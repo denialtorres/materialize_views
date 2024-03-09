@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_09_074117) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_09_192203) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,6 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_09_074117) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index "to_tsvector('english'::regconfig, (name)::text)", name: "index_authors_on_to_tsvector_english_name", using: :gin
   end
 
   create_table "books", force: :cascade do |t|
@@ -27,6 +28,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_09_074117) do
     t.bigint "genre_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index "to_tsvector('english'::regconfig, (title)::text)", name: "index_books_on_to_tsvector_english_title", using: :gin
     t.index ["author_id"], name: "index_books_on_author_id"
     t.index ["genre_id"], name: "index_books_on_genre_id"
     t.index ["publisher_id"], name: "index_books_on_publisher_id"
@@ -36,12 +38,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_09_074117) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index "to_tsvector('english'::regconfig, (name)::text)", name: "index_genres_on_to_tsvector_english_name", using: :gin
   end
 
   create_table "publishers", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index "to_tsvector('english'::regconfig, (name)::text)", name: "index_publishers_on_to_tsvector_english_name", using: :gin
   end
 
   add_foreign_key "books", "authors"
