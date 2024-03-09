@@ -3,7 +3,11 @@ class BooksController < ApplicationController
 
   # GET /books or /books.json
   def index
-    @books = Book.all
+    @books = Book.includes(:author, :publisher, :genre)
+                 .all
+                 .page(params[:page])
+                 .without_count
+                 .per(8)
   end
 
   # GET /books/1 or /books/1.json

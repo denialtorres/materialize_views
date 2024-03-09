@@ -1,28 +1,35 @@
 <p style="color: green"><%= notice %></p>
 
-<table class='table'>
-  <thead>
-    <th>Title</th>
-    <th>Author</th>
-    <th>Publisher</th>
-    <th>Genre</th>
+<table class='min-w-full table-auto'>
+  <thead class="bg-gray-100">
+    <tr>
+      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Author</th>
+      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Publisher</th>
+      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Genre</th>
 
-    <th colspan=3>Actions</th>
+      <th colspan=3 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+    </tr>
   </thead>
-  <tbody>
+  <tbody class="bg-white divide-y divide-gray-200">
     <% @books.each do |book| %>
       <tr>
-        <td><%= book.title %></td>
-        <td><%= book.author.name %></td>
-        <td><%= book.publisher.name %></td>
-        <td><%= book.genre.name %></td>
+        <td class="px-6 py-4 whitespace-nowrap"><%= book.title %></td>
+        <td class="px-6 py-4 whitespace-nowrap"><%= book.author.name %></td>
+        <td class="px-6 py-4 whitespace-nowrap"><%= book.publisher.name %></td>
+        <td class="px-6 py-4 whitespace-nowrap"><%= book.genre.name %></td>
 
-        <td><%= link_to "Show", book_path(book) %></td>
-        <td><%= link_to "Edit", edit_book_path(book) %></td>
-        <td><%= link_to "Delete", book_path(book), "data-turbo-method": :delete %></td>
+        <td class="px-6 py-4 whitespace-nowrap"><%= link_to "Show", book_path(book), class: "text-indigo-600 hover:text-indigo-900" %></td>
+        <td class="px-6 py-4 whitespace-nowrap"><%= link_to "Edit", edit_book_path(book), class: "text-indigo-600 hover:text-indigo-900" %></td>
+        <td class="px-6 py-4 whitespace-nowrap"><%= link_to "Delete", book_path(book), method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-600 hover:text-red-900" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
+
+<%# paginate @books %>
+<%= link_to_prev_page @books, 'Previous Page', class: 'px-4 py-2 border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white transition-colors duration-150' %>
+<%= link_to_next_page @books, 'Next Page', class: 'px-4 py-2 border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white transition-colors duration-150' %>
+<br>
 <%= link_to "New book", new_book_path %>
