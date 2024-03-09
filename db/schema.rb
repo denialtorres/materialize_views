@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_09_192203) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_09_215759) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,4 +51,19 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_09_192203) do
   add_foreign_key "books", "authors"
   add_foreign_key "books", "genres"
   add_foreign_key "books", "publishers"
+
+  create_view "book_stores", materialized: true, sql_definition: <<-SQL
+      SELECT book.id,
+      book.title,
+      author.name AS author_name,
+      publisher.name AS publisher_name,
+      genre.name AS genre_name,
+      book.updated_at,
+      book.created_at
+     FROM (((books book
+       JOIN authors author ON ((author.id = book.author_id)))
+       JOIN publishers publisher ON ((publisher.id = book.publisher_id)))
+       JOIN genres genre ON ((genre.id = book.genre_id)))
+    ORDER BY book.id;
+  SQL
 end
