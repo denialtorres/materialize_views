@@ -77,3 +77,5 @@ group :development, :test do
 end
 
 gem "scenic", "~> 1.7"
+
+gem "rails-erd", "~> 1.7"
