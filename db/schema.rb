@@ -14,17 +14,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_09_074117) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "authors", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "authors", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "books", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "books", force: :cascade do |t|
     t.string "title"
-    t.uuid "author_id", null: false
-    t.uuid "publisher_id", null: false
-    t.uuid "genre_id", null: false
+    t.bigint "author_id", null: false
+    t.bigint "publisher_id", null: false
+    t.bigint "genre_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["author_id"], name: "index_books_on_author_id"
@@ -32,13 +32,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_09_074117) do
     t.index ["publisher_id"], name: "index_books_on_publisher_id"
   end
 
-  create_table "genres", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "genres", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "publishers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "publishers", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
