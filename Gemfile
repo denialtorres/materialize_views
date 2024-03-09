@@ -79,3 +79,5 @@ end
 gem "scenic", "~> 1.7"
 
 gem "rails-erd", "~> 1.7"
+
+gem "tailwindcss-rails", "~> 2.3"
